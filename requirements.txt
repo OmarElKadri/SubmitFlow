@@ -1,0 +1,23 @@
+# Core Framework
+fastapi
+uvicorn[standard]
+python-dotenv
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+
+# LLM & Browser Automation
+openai>=1.12.0
+patchright>=0.1.0
+agentql>=0.1.0
+
+# Validation & Utilities
+pydantic
+pydantic-settings
+
+# Testing
+pytest
+pytest-asyncio
+httpx
