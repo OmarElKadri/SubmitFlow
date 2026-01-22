@@ -1,10 +1,14 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Enum
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 import enum
 from app.db.base import Base
+
+
+def utcnow():
+    return datetime.now(timezone.utc)
 
 
 class JobStatus(str, enum.Enum):
@@ -19,13 +23,24 @@ class SubmissionJob(Base):
     __tablename__ = "submission_jobs"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    saas_product_id = Column(UUID(as_uuid=True), ForeignKey("saas_products.id"), nullable=False)
+    saas_product_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("saas_products.id", ondelete="CASCADE"),
+        nullable=False,
+    )
     status = Column(Enum(JobStatus), default=JobStatus.NOT_STARTED)
     total_directories = Column(Integer, default=0)
     completed_count = Column(Integer, default=0)
     failed_count = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    started_at = Column(DateTime)
-    completed_at = Column(DateTime)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    started_at = Column(DateTime(timezone=True))
+    completed_at = Column(DateTime(timezone=True))
     
-    attempts = relationship("SubmissionAttempt", back_populates="job")
+    # Relationships
+    saas_product = relationship("SaaSProduct", back_populates="jobs")
+    attempts = relationship(
+        "SubmissionAttempt",
+        back_populates="job",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )

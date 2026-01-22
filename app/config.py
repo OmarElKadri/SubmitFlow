@@ -3,8 +3,8 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
-    # Database
-    database_url: str = "postgresql://user:password@localhost:5432/autosaas"
+    # Database (PostgreSQL)
+    database_url: str = "postgresql://postgres:postgres@localhost:5432/autosaas"
     
     # LLM Configuration (OpenAI-compatible endpoint)
     llm_api_key: str = ""
@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     
     # Browser Settings
     browser_headless: bool = False
+    browser_user_data_dir: str = ""  # Path to Chrome profile (e.g., C:\Users\YourName\AppData\Local\Google\Chrome\User Data)
     max_concurrent_browsers: int = 3
     
     # Application

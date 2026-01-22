@@ -2,6 +2,7 @@
 fastapi
 uvicorn[standard]
 python-dotenv
+python-multipart
 
 # Database
 sqlalchemy
@@ -10,7 +11,7 @@ alembic
 
 # LLM & Browser Automation
 openai>=1.12.0
-patchright>=0.1.0
+patchwright
 agentql>=0.1.0
 
 # Validation & Utilities

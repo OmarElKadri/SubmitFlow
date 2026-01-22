@@ -1,1 +1,1 @@
-
+from app.prompts.browser_agent import BROWSER_AGENT_PROMPT, get_browser_agent_prompt

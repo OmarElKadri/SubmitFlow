@@ -88,3 +88,8 @@ STATUS.md
 
 screenshots/
 alembic/
+.patchright_profile/
+
+# Uploaded assets
+assets/logos/*
+!assets/logos/.gitkeep
